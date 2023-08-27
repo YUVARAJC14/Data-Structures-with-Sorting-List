@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+void displayMissingElements(int arr[], int size, int minRange, int maxRange) {
+    bool presence[maxRange + 1];  // Creating a boolean array to track presence
+    for (int i = 0; i <= maxRange; i++) {
+        presence[i] = false;  // Initializing all elements as missing initially
+    }
+
+    for (int i = 0; i < size; i++) {
+        presence[arr[i]] = true;  // Marking the presence of elements in the array
+    }
+
+    printf("Missing elements: ");
+    for (int i = minRange; i <= maxRange; i++) {
+        if (!presence[i]) {
+            printf("%d ", i);  // Displaying missing elements
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int arr[] = {3, 7, 2, 10};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int minRange = 1;  // Minimum expected range
+    int maxRange = 10; // Maximum expected range
+
+    displayMissingElements(arr, size, minRange, maxRange);
+
+    return 0;
+}
