@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_NODES 100
+
+int graph[MAX_NODES][MAX_NODES];
+int numNodes;
+
+void convertToAdjMatrix() {
+    for (int i = 0; i < numNodes; i++) {
+        for (int j = 0; j < numNodes; j++) {
+            graph[i][j] = 0;
+        }
+    }
+    printf("Enter the number of edges: ");
+    int numEdges;
+    scanf("%d", &numEdges);
+    
+    printf("Enter the edges (node1 node2 weight):\n");
+    for (int i = 0; i < numEdges; i++) {
+        int node1, node2, weight;
+        scanf("%d %d %d", &node1, &node2, &weight);
+        graph[node1][node2] = graph[node2][node1] = weight;
+    }
+}
+
+void primMST() {
+    int selected[numNodes];
+    int minEdge[numNodes];
+    
+    for (int i = 0; i < numNodes; i++) {
+        selected[i] = false;
+        minEdge[i] = INT_MAX;
+    }
+    
+    int sourceNode = 0;
+    selected[sourceNode] = true;
+    
+    int totalEdges = 0;
+    
+    printf("Minimum spanning tree edges:\n");
+    
+    while (totalEdges < numNodes - 1) {
+        int minWeight = INT_MAX;
+        int u = -1;
+        
+        for (int i = 0; i < numNodes; i++) {
+            if (selected[i]) {
+                for (int j = 0; j < numNodes; j++) {
+                    if (!selected[j] && graph[i][j] && graph[i][j] < minEdge[j]) {
+                        minEdge[j] = graph[i][j];
+                        if (minEdge[j] < minWeight) {
+                            minWeight = minEdge[j];
+                            u = j;
+                        }
+                    }
+                }
+            }
+        }
+        
+        if (u != -1) {
+            printf("%d - %d\n", u, minEdge[u]);
+            selected[u] = true;
+            totalEdges++;
+        }
+    }
+}
+
+int main() {
+    printf("Enter the number of nodes: ");
+    scanf("%d", &numNodes);
+    
+    convertToAdjMatrix();
+    primMST();
+    
+    return 0;
+}
