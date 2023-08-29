@@ -1,0 +1,74 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+#define MAX_NODES 100
+
+int graph[MAX_NODES][MAX_NODES];
+int numNodes;
+
+bool visited[MAX_NODES];
+
+void convertToAdjMatrix() {
+    for (int i = 0; i < numNodes; i++) {
+        for (int j = 0; j < numNodes; j++) {
+            graph[i][j] = 0;
+        }
+    }
+    printf("Enter the number of edges: ");
+    int numEdges;
+    scanf("%d", &numEdges);
+    
+    printf("Enter the edges (node1 node2):\n");
+    for (int i = 0; i < numEdges; i++) {
+        int node1, node2;
+        scanf("%d %d", &node1, &node2);
+        graph[node1][node2] = graph[node2][node1] = 1;
+    }
+}
+
+bool dfs(int currentNode, int destinationNode, int path[], int depth) {
+    visited[currentNode] = true;
+    path[depth] = currentNode;
+    
+    if (currentNode == destinationNode) {
+        for (int i = 0; i <= depth; i++) {
+            printf("%d ", path[i]);
+        }
+        printf("\n");
+        return true;
+    }
+    
+    for (int i = 0; i < numNodes; i++) {
+        if (graph[currentNode][i] && !visited[i]) {
+            if (dfs(i, destinationNode, path, depth + 1)) {
+                return true;
+            }
+        }
+    }
+    
+    visited[currentNode] = false;
+    return false;
+}
+
+int main() {
+    printf("Enter the number of nodes: ");
+    scanf("%d", &numNodes);
+    
+    convertToAdjMatrix();
+    
+    int sourceNode, destinationNode;
+    printf("Enter source node: ");
+    scanf("%d", &sourceNode);
+    printf("Enter destination node: ");
+    scanf("%d", &destinationNode);
+    
+    int path[MAX_NODES];
+    for (int i = 0; i < numNodes; i++) {
+        visited[i] = false;
+    }
+    
+    printf("Valid paths between %d and %d:\n", sourceNode, destinationNode);
+    dfs(sourceNode, destinationNode, path, 0);
+    
+    return 0;
+}
