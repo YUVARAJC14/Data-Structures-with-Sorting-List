@@ -1,0 +1,58 @@
+#include <stdio.h>
+
+int linearSearch(int arr[], int size, int target) {
+    for (int i = 0; i < size; i++) {
+        if (arr[i] == target) {
+            return i;  // Return index where the target is found
+        }
+    }
+    return -1;  // Return -1 if target is not found
+}
+
+int main() {
+    int haystack[] = {10, 20, 30, 40, 50};
+    int size = sizeof(haystack) / sizeof(haystack[0]);
+    int needle = 30;
+
+    int index = linearSearch(haystack, size, needle);
+
+    if (index != -1) {
+        printf("Needle found at index %d\n", index);
+    } else {
+        printf("Needle not found\n");
+    }
+
+    return 0;
+}
+#include <stdio.h>
+
+int binarySearch(int arr[], int left, int right, int target) {
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+
+        if (arr[mid] == target) {
+            return mid;  // Return index where the target is found
+        } else if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return -1;  // Return -1 if target is not found
+}
+
+int main() {
+    int haystack[] = {10, 20, 30, 40, 50};
+    int size = sizeof(haystack) / sizeof(haystack[0]);
+    int needle = 30;
+
+    int index = binarySearch(haystack, 0, size - 1, needle);
+
+    if (index != -1) {
+        printf("Needle found at index %d\n", index);
+    } else {
+        printf("Needle not found\n");
+    }
+
+    return 0;
+}
