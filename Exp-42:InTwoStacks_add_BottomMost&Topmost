@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_SIZE 100
+typedef struct {
+    int arr[MAX_SIZE];
+    int top;
+} Stack;
+
+void initializeStack(Stack *stack) {
+    stack->top = -1;
+}
+int isEmpty(Stack *stack) {
+    return stack->top == -1;
+}
+void push(Stack *stack, int value) {
+    if (stack->top < MAX_SIZE - 1) {
+        stack->arr[++stack->top] = value;
+    } else {
+        printf("Stack overflow\n");
+    }
+}
+int pop(Stack *stack) {
+    if (!isEmpty(stack)) {
+        return stack->arr[stack->top--];
+    } else {
+        printf("Stack underflow\n");
+        return -1; 
+    }
+}
+int top(Stack *stack) {
+    if (!isEmpty(stack)) {
+        return stack->arr[stack->top];
+    } else {
+        printf("Stack is empty\n");
+        return -1;
+    }
+}
+int main() {
+    Stack stack1, stack2;
+    initializeStack(&stack1);
+    initializeStack(&stack2);
+    push(&stack1, 1);
+    push(&stack1, 2);
+    push(&stack1, 3);
+    while (!isEmpty(&stack1)) {
+        int value = pop(&stack1);
+        if (isEmpty(&stack1)) {
+            push(&stack2, value);
+        }
+    }
+    printf("Top element of stack1: %d\n", top(&stack1));
+    printf("Top element of stack2: %d\n", top(&stack2));
+
+    return 0;
+}
