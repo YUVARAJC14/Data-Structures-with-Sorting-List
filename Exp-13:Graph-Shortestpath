@@ -1,4 +1,5 @@
 #include <limits.h>
+#include <stdbool.h>
 #include <stdio.h>
 #define V 9
 int minDistance(int dist[], bool sptSet[]) {
