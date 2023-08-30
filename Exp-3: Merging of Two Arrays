@@ -10,8 +10,8 @@ int main()
 	{
 		c[i] = a[i];
 	}
-	for (i = 0, j = arr1size;
-		j < arr_resultsize && i < arr2size; i++, j++) {
+	for (i = 0, j = arr1size;j < arr_resultsize && i < arr2size; i++, j++)
+        {
 		c[j] = b[i];
 	}
 	for (i = 0; i < arr_resultsize; i++) {
